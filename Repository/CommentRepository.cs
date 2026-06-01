@@ -51,5 +51,17 @@ namespace api.Repository
             
             return existingComment;
         }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var commentModel = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            if(commentModel == null)
+            {
+                return false;
+            }   
+            _context.Comments.Remove(commentModel);
+           await _context.SaveChangesAsync();
+           return true;
+        }
     }
 }
