@@ -15,9 +15,10 @@ namespace api.Models
         public decimal Purchase { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal LastDiv { get; set; }
-        public string Industry  { get; set; } = string.Empty;
+        public string Industry { get; set; } = string.Empty;
         public long MarketCap { get; set; }
 
+        // Reverse navigation property
         public List<Comment> Comments { get; set; } = new List<Comment>();
 
     }
