@@ -32,6 +32,19 @@ namespace api.Repository
             {
                 stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));
             }
+            if(!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                stocks = query.SortBy.ToLower() switch
+                {
+                    "symbol" => query.IsDescending ? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol),
+                    "companyname" => query.IsDescending ? stocks.OrderByDescending(s => s.CompanyName) : stocks.OrderBy(s => s.CompanyName),
+                    "purchase" => query.IsDescending ? stocks.OrderByDescending(s => s.Purchase) : stocks.OrderBy(s => s.Purchase),
+                    "lastdiv" => query.IsDescending ? stocks.OrderByDescending(s => s.LastDiv) : stocks.OrderBy(s => s.LastDiv),
+                    "industry" => query.IsDescending ? stocks.OrderByDescending(s => s.Industry) : stocks.OrderBy(s => s.Industry),
+                    "marketcap" => query.IsDescending ? stocks.OrderByDescending(s => s.MarketCap) : stocks.OrderBy(s => s.MarketCap),
+                    _ => stocks
+                };
+            }
             return await stocks.ToListAsync();
         }
 
