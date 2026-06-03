@@ -48,6 +48,7 @@ namespace api.Controllers
             return Ok(comment.ToCommentDto());
         }
 
+
         [HttpPost("{stockId:int}")]
         public async Task<IActionResult> Create([FromRoute] int stockId, CreateCommentDto commentDto)
         {
